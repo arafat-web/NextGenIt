@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGenIT - Premium Web Solutions</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --accent: #8b5cf6;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .navbar {
+            transition: all 0.3s ease;
+        }
+
+        .navbar-scrolled {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-section {
+            min-height: 90vh;
+            background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .shape-1 {
+            width: 500px;
+            height: 500px;
+            top: -250px;
+            right: -100px;
+        }
+
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -100px;
+            left: -50px;
+        }
+
+        .product-card {
+            border-radius: 12px;
+            overflow: hidden;
+            border: none;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img-top {
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .bg-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%) !important;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border: none;
+            color: white;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            color: white;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-gradient::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--secondary);
+            z-index: -1;
+            transition: width 0.3s ease;
+        }
+
+        .btn-gradient:hover::before {
+            width: 100%;
+        }
+
+        .btn-outline-light {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .btn-outline-light::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: white;
+            z-index: -1;
+            transition: width 0.3s ease;
+        }
+
+        .btn-outline-light:hover::before {
+            width: 100%;
+        }
+
+        .btn-outline-light:hover {
+            color: var(--primary);
+        }
+
+        .testimonial-card {
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .footer {
+            background-color: var(--dark);
+            color: var(--light);
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Custom cursor trail */
+        .cursor-dot {
+            width: 5px;
+            height: 5px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cursor-outline {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: transform 0.1s ease, opacity 0.3s ease;
+        }
+
+        /* Price badge */
+        .price-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        /* Cards zoom effect */
+        .card-img-container {
+            overflow: hidden;
+        }
+
+        .card-img-container img {
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .card-img-container img {
+            transform: scale(1.1);
+        }
+
+        /* Reveal image on hover */
+        .image-reveal {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .image-reveal::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            transform: scaleX(1);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+
+        .image-reveal:hover::after {
+            transform: scaleX(0);
+            transform-origin: left;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+                <span class="fs-4 text-primary">NextGenIT</span>
+            </a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="products.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="features.html">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="testimonials.html">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <div class="ms-lg-3 mt-3 mt-lg-0">
+                    <a href="#contact" class="btn btn-gradient px-4 py-2">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section d-flex align-items-center" id="home">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="container hero-content text-white">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+                    <h1 class="display-4 fw-bold mb-4">Premium Web Solutions by NextGenIT</h1>
+                    <p class="lead mb-5">Professional, customizable scripts and templates developed by our expert team
+                        for e-commerce, portfolio, and digital publication needs.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="products.html" class="btn btn-light btn-lg px-4 py-3">Explore Products</a>
+                        <a href="contact.html" class="btn btn-outline-light btn-lg px-4 py-3">Contact Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left" data-aos-duration="1000"
+                    data-aos-delay="200">
+                    <!-- <div class="image-reveal"> -->
+                        <img src="https://placehold.co/600x400" alt="NextGenIT Products" class="img-fluid rounded-3">
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="py-5 py-lg-7" id="products">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-uppercase text-primary fw-semibold mb-2">Our Products</h6>
+                <h2 class="mb-4 fw-bold">Premium Web Solutions</h2>
+                <p class="lead text-muted mx-auto" style="max-width: 600px;">Discover our collection of professionally
+                    designed and developed web solutions to power your digital presence.</p>
+            </div>
+            <div class="row g-4">
+                <!-- Product 1 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="product-card shadow-sm">
+                        <div class="position-relative">
+                            <span class="price-badge bg-primary text-white">$499</span>
+                            <div class="card-img-container">
+                                <img src="https://placehold.co/600x400" alt="E-commerce template" class="card-img-top">
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <h4 class="card-title fw-bold">NexCommerce</h4>
+                            <p class="card-text text-muted">Complete e-commerce solution with advanced product
+                                management, payment integrations, and customer analytics.</p>
+                            <div class="d-flex mt-4">
+                                <a href="#" class="btn btn-gradient px-4 py-2 w-100">View Details</a>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 p-4 pt-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge bg-light text-primary me-2">E-Commerce</span>
+                                    <span class="badge bg-light text-primary">Responsive</span>
+                                </div>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="product-card shadow-sm">
+                        <div class="position-relative">
+                            <span class="price-badge bg-primary text-white">$349</span>
+                            <div class="card-img-container">
+                                <img src="https://placehold.co/600x400" alt="Portfolio template" class="card-img-top">
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <h4 class="card-title fw-bold">NexFolio</h4>
+                            <p class="card-text text-muted">Professional portfolio solution with interactive galleries,
+                                animated transitions, and project showcases.</p>
+                            <div class="d-flex mt-4">
+                                <a href="#" class="btn btn-gradient px-4 py-2 w-100">View Details</a>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 p-4 pt-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge bg-light text-primary me-2">Portfolio</span>
+                                    <span class="badge bg-light text-primary">Interactive</span>
+                                </div>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="product-card shadow-sm">
+                        <div class="position-relative">
+                            <span class="price-badge bg-primary text-white">$399</span>
+                            <div class="card-img-container">
+                                <img src="https://placehold.co/600x400" alt="E-newspaper template" class="card-img-top">
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <h4 class="card-title fw-bold">NexNews</h4>
+                            <p class="card-text text-muted">Digital publication platform with subscription management,
+                                content scheduling, and analytics dashboard.</p>
+                            <div class="d-flex mt-4">
+                                <a href="#" class="btn btn-gradient px-4 py-2 w-100">View Details</a>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 p-4 pt-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge bg-light text-primary me-2">E-Newspaper</span>
+                                    <span class="badge bg-light text-primary">Analytics</span>
+                                </div>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 py-lg-7 bg-light" id="features">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-uppercase text-primary fw-semibold mb-2">Why Choose Us</h6>
+                <h2 class="mb-4 fw-bold">NextGenIT Advantages</h2>
+                <p class="lead text-muted mx-auto" style="max-width: 600px;">Our products are built with attention to
+                    detail, focusing on performance, usability, and modern design.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-white p-4 rounded-3 shadow-sm h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Clean Code</h4>
+                        <p class="text-muted mb-0">Our scripts are written with clean, well-documented code following
+                            industry best practices for easy maintenance and customization.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-white p-4 rounded-3 shadow-sm h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Fully Responsive</h4>
+                        <p class="text-muted mb-0">All our products are meticulously tested to ensure perfect
+                            performance across all devices and screen sizes.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-white p-4 rounded-3 shadow-sm h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Performance Optimized</h4>
+                        <p class="text-muted mb-0">We prioritize loading speed and performance, ensuring your website
+                            runs smoothly with optimized code and assets.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-white p-4 rounded-3 shadow-sm h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Dedicated Support</h4>
+                        <p class="text-muted mb-0">Our team provides 6 months of premium support to help you with
+                            implementation and any questions you might have.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="bg-white p-4 rounded-3 shadow-sm h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Regular Updates</h4>
+                        <p class="text-muted mb-0">We constantly improve our products with new features and security
+                            updates, all available to existing customers.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                    <div class="bg-white p-4 rounded-3 shadow-sm h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Modern Design</h4>
+                        <p class="text-muted mb-0">Clean and modern UI/UX design that follows the latest trends while
+                            ensuring intuitive user experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-5 bg-gradient text-white">
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <h2 class="display-4 fw-bold mb-2">500+</h2>
+                    <p class="mb-0">Happy Clients</p>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <h2 class="display-4 fw-bold mb-2">3</h2>
+                    <p class="mb-0">Premium Products</p>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <h2 class="display-4 fw-bold mb-2">98%</h2>
+                    <p class="mb-0">Customer Satisfaction</p>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <h2 class="display-4 fw-bold mb-2">24/7</h2>
+                    <p class="mb-0">Technical Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-5 py-lg-7" id="testimonials">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-uppercase text-primary fw-semibold mb-2">Testimonials</h6>
+                <h2 class="mb-4 fw-bold">What Our Clients Say</h2>
+                <p class="lead text-muted mx-auto" style="max-width: 600px;">Don't just take our word for it - see what
+                    our customers have to say about NextGenIT products.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card p-4 shadow-sm h-100">
+                        <div class="text-warning mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="mb-4">"NexCommerce transformed our online store. The intuitive dashboard and seamless
+                            checkout process improved our conversion rates by 30%. The support team has been
+                            exceptionally helpful with our customization needs."</p>
+                        <div class="d-flex align-items-center">
+                            <img src="https://placehold.co/50x50" alt="Client" class="rounded-circle">
+                            <div class="ms-3">
+                                <h6 class="mb-0 fw-bold">Sarah Johnson</h6>
+                                <p class="small text-muted mb-0">Retail Business Owner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card p-4 shadow-sm h-100">
+                        <div class="text-warning mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="mb-4">"As a photographer, the NexFolio template perfectly showcases my work. The
+                            gallery features and animations make my portfolio stand out. I've received numerous
+                            compliments on the design and user experience."</p>
+                        <div class="d-flex align-items-center">
+                            <img src="https://placehold.co/50x50" alt="Client" class="rounded-circle">
+                            <div class="ms-3">
+                                <h6 class="mb-0 fw-bold">Michael Chen</h6>
+                                <p class="small text-muted mb-0">Professional Photographer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-card p-4 shadow-sm h-100">
+                        <div class="text-warning mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="mb-4">"NexNews allowed us to launch our digital magazine quickly. The subscription
+                            management and content scheduling features are game-changers. The analytics dashboard gives
+                            us valuable insights into our readers' behavior."</p>
+                        <div class="d-flex align-items-center">
+                            <img src="https://placehold.co/50x50" alt="Client" class="rounded-circle">
+                            <div class="ms-3">
+                                <h6 class="mb-0 fw-bold">David Rodriguez</h6>
+                                <p class="small text-muted mb-0">Digital Publisher</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-5 py-lg-7 bg-light" id="contact">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h6 class="text-uppercase text-primary fw-semibold mb-2">Get In Touch</h6>
+                    <h2 class="mb-4 fw-bold">Let's Discuss Your Project</h2>
+                    <p class="lead text-muted mb-4">Interested in our products or have questions? Our team is ready to
+                        help you find the perfect solution for your needs.</p>
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="feature-icon me-3" style="width: 40px; height: 40px; font-size: 1rem;">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Email Us</h6>
+                            <p class="text-muted mb-0">contact@nextgenitcompany.com</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="feature-icon me-3" style="width: 40px; height: 40px; font-size: 1rem;">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Call Us</h6>
+                            <p class="text-muted mb-0">+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="feature-icon me-3" style="width: 40px; height: 40px; font-size: 1rem;">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Visit Us</h6>
+                            <p class="text-muted mb-0">123 Innovation Way, Tech City, CA 94043</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="bg-white p-4 p-lg-5 rounded-3 shadow-sm">
+                        <h4 class="fw-bold mb-4">Send us a message</h4>
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="John Doe">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Your Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="john@example.com">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" placeholder="+1 (555) 123-4567">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <select class="form-select" id="subject">
+                                        <option selected>Select a subject</option>
+                                        <option value="1">Product Inquiry</option>
+                                        <option value="2">Technical Support</option>
+                                        <option value="3">Custom Request</option>
+                                        <option value="4">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label">Your Message</label>
+                                    <textarea class="form-control" id="message" rows="4"
+                                        placeholder="Tell us about your project..."></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-gradient px-4 py-2">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <a class="d-inline-block mb-3" href="#">
+                        <span class="fs-4 fw-bold text-white">NextGenIT</span>
+                    </a>
+                    <p class="text-white-50">Premium web solutions for businesses of all sizes. Our team is dedicated to
+                        creating high-quality, performance-optimized products.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon me-2"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h5 class="text-white mb-4">Products</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#" class="text-white-50">NexCommerce</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">NexFolio</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">NexNews</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h5 class="text-white mb-4">Company</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#" class="text-white-50">About Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Team</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Careers</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h5 class="text-white mb-4">Support</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#" class="text-white-50">Help Center</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Documentation</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Status</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h5 class="text-white mb-4">Legal</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#" class="text-white-50">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Terms of Service</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Refund Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">License</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-5 mb-4 border-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-white-50 mb-0">© 2025 NextGenIT. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <p class="text-white-50 mb-0">Designed with <i class="fas fa-heart text-danger"></i> by NextGenIT
+                        Team</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+
+        // Custom cursor
+        document.addEventListener('DOMContentLoaded', function () {
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+
+            if (cursorDot && cursorOutline) {
+                window.addEventListener('mousemove', function (e) {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    cursorDot.style.opacity = '1';
+
+                    cursorOutline.style.left = `${posX - 15}px`;
+                    cursorOutline.style.top = `${posY - 15}px`;
+                    cursorOutline.style.opacity = '1';
+                });
+
+                window.addEventListener('mouseout', function () {
+                    cursorDot.style.opacity = '0';
+                    cursorOutline.style.opacity = '0';
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
