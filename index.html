@@ -11,255 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- AOS Animation Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <style>
-        :root {
-            --primary: #2563eb;
-            --secondary: #1e40af;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --accent: #8b5cf6;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--dark);
-            background-color: var(--light);
-        }
-
-        .navbar {
-            transition: all 0.3s ease;
-        }
-
-        .navbar-scrolled {
-            background-color: rgba(255, 255, 255, 0.95) !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .hero-section {
-            min-height: 90vh;
-            background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .floating-shape {
-            position: absolute;
-            opacity: 0.1;
-            background-color: white;
-            border-radius: 50%;
-        }
-
-        .shape-1 {
-            width: 500px;
-            height: 500px;
-            top: -250px;
-            right: -100px;
-        }
-
-        .shape-2 {
-            width: 300px;
-            height: 300px;
-            bottom: -100px;
-            left: -50px;
-        }
-
-        .product-card {
-            border-radius: 12px;
-            overflow: hidden;
-            border: none;
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-img-top {
-            height: 220px;
-            object-fit: cover;
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .bg-gradient {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%) !important;
-        }
-
-        .btn-gradient {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            border: none;
-            color: white;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .btn-gradient:hover {
-            color: white;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
-        }
-
-        .btn-gradient::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: var(--secondary);
-            z-index: -1;
-            transition: width 0.3s ease;
-        }
-
-        .btn-gradient:hover::before {
-            width: 100%;
-        }
-
-        .btn-outline-light {
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .btn-outline-light::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: white;
-            z-index: -1;
-            transition: width 0.3s ease;
-        }
-
-        .btn-outline-light:hover::before {
-            width: 100%;
-        }
-
-        .btn-outline-light:hover {
-            color: var(--primary);
-        }
-
-        .testimonial-card {
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: white;
-        }
-
-        .footer {
-            background-color: var(--dark);
-            color: var(--light);
-        }
-
-        .social-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        /* Custom cursor trail */
-        .cursor-dot {
-            width: 5px;
-            height: 5px;
-            background-color: var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .cursor-outline {
-            width: 30px;
-            height: 30px;
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0;
-            transition: transform 0.1s ease, opacity 0.3s ease;
-        }
-
-        /* Price badge */
-        .price-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-weight: 600;
-            z-index: 10;
-        }
-
-        /* Cards zoom effect */
-        .card-img-container {
-            overflow: hidden;
-        }
-
-        .card-img-container img {
-            transition: transform 0.5s ease;
-        }
-
-        .product-card:hover .card-img-container img {
-            transform: scale(1.1);
-        }
-
-        /* Reveal image on hover */
-        .image-reveal {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .image-reveal::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--primary);
-            transform: scaleX(1);
-            transform-origin: right;
-            transition: transform 0.5s ease;
-        }
-
-        .image-reveal:hover::after {
-            transform: scaleX(0);
-            transform-origin: left;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -268,10 +20,10 @@
     <div class="cursor-outline"></div>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
         <div class="container">
             <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
-                <span class="fs-4 text-primary">NextGenIT</span>
+                <span id="navbar-brand" class="fs-4 text-white">NextGenIT</span>
             </a>
             <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav">
@@ -320,7 +72,7 @@
                 <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left" data-aos-duration="1000"
                     data-aos-delay="200">
                     <!-- <div class="image-reveal"> -->
-                        <img src="https://placehold.co/600x400" alt="NextGenIT Products" class="img-fluid rounded-3">
+                    <img src="https://placehold.co/600x400" alt="NextGenIT Products" class="img-fluid rounded-3">
                     <!-- </div> -->
                 </div>
             </div>
@@ -698,68 +450,58 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer class="footer py-5">
         <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <a class="d-inline-block mb-3" href="#">
-                        <span class="fs-4 fw-bold text-white">NextGenIT</span>
-                    </a>
-                    <p class="text-white-50">Premium web solutions for businesses of all sizes. Our team is dedicated to
-                        creating high-quality, performance-optimized products.</p>
-                    <div class="mt-4">
+            <div class="row gy-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="text-white mb-4">About NextGenIT</h5>
+                    <p class="text-white mb-4">We provide cutting-edge IT solutions that help businesses transform and
+                        thrive in the digital age.</p>
+                    <div class="social-links">
                         <a href="#" class="social-icon me-2"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="social-icon me-2"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon me-2"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="social-icon me-2"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-3 col-6">
-                    <h5 class="text-white mb-4">Products</h5>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><a href="#" class="text-white-50">NexCommerce</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">NexFolio</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">NexNews</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Pricing</a></li>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="text-white mb-4">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white">Home</a></li>
+                        <li class="mb-2"><a href="products.html" class="text-white">Products</a></li>
+                        <li class="mb-2"><a href="features.html" class="text-white">Features</a></li>
+                        <li class="mb-2"><a href="testimonials.html" class="text-white">Testimonials</a></li>
+                        <li><a href="contact.html" class="text-white">Contact</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-2 col-md-3 col-6">
-                    <h5 class="text-white mb-4">Company</h5>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><a href="#" class="text-white-50">About Us</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Team</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Careers</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Blog</a></li>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Contact Info</h5>
+                    <ul class="list-unstyled text-white">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Tech Street, Silicon Valley</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@nextgenit.com</li>
                     </ul>
                 </div>
-                <div class="col-lg-2 col-md-3 col-6">
-                    <h5 class="text-white mb-4">Support</h5>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><a href="#" class="text-white-50">Help Center</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Documentation</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Status</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-2 col-md-3 col-6">
-                    <h5 class="text-white mb-4">Legal</h5>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><a href="#" class="text-white-50">Privacy Policy</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Terms of Service</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">Refund Policy</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50">License</a></li>
-                    </ul>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Newsletter</h5>
+                    <p class="text-white mb-4">Subscribe to our newsletter for updates and insights.</p>
+                    <form>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Your email" aria-label="Your email">
+                            <button class="btn btn-gradient" type="button">Subscribe</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <hr class="mt-5 mb-4 border-secondary">
-            <div class="row align-items-center">
+            <hr class="my-4 border-light">
+            <div class="row">
                 <div class="col-md-6 text-center text-md-start">
-                    <p class="text-white-50 mb-0">© 2025 NextGenIT. All rights reserved.</p>
+                    <p class="text-white mb-0">&copy; 2025 NextGenIT. All rights reserved.</p>
                 </div>
-                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-                    <p class="text-white-50 mb-0">Designed with <i class="fas fa-heart text-danger"></i> by NextGenIT
-                        Team</p>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white me-3">Privacy Policy</a>
+                    <a href="#" class="text-white">Terms of Service</a>
                 </div>
             </div>
         </div>
@@ -769,47 +511,26 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- AOS Animation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <!-- Custom JS -->
+    <!-- Custom Script -->
+    <script src="scripts.js"></script>
     <script>
-        // Initialize AOS animations
-        AOS.init({
-            duration: 800,
-            once: true
-        });
-
         // Navbar scroll effect
-        window.addEventListener('scroll', function () {
-            const navbar = document.querySelector('.navbar');
+        window.addEventListener("scroll", function () {
+            const navbar = document.querySelector(".navbar");
+            const navbarBrand = document.querySelector("#navbar-brand");
             if (window.scrollY > 50) {
-                navbar.classList.add('navbar-scrolled');
+                navbar.classList.add("navbar-scrolled");
+                navbar.classList.remove("navbar-dark");
+                navbar.classList.add("navbar-light");
+                navbarBrand.classList.add("text-primary");
+                navbarBrand.classList.remove("text-white");
+
             } else {
-                navbar.classList.remove('navbar-scrolled');
-            }
-        });
+                navbar.classList.remove("navbar-scrolled");
+                navbar.classList.remove("navbar-light");
+                navbar.classList.add("navbar-dark");
+                navbarBrand.classList.remove("text-primary");
 
-        // Custom cursor
-        document.addEventListener('DOMContentLoaded', function () {
-            const cursorDot = document.querySelector('.cursor-dot');
-            const cursorOutline = document.querySelector('.cursor-outline');
-
-            if (cursorDot && cursorOutline) {
-                window.addEventListener('mousemove', function (e) {
-                    const posX = e.clientX;
-                    const posY = e.clientY;
-
-                    cursorDot.style.left = `${posX}px`;
-                    cursorDot.style.top = `${posY}px`;
-                    cursorDot.style.opacity = '1';
-
-                    cursorOutline.style.left = `${posX - 15}px`;
-                    cursorOutline.style.top = `${posY - 15}px`;
-                    cursorOutline.style.opacity = '1';
-                });
-
-                window.addEventListener('mouseout', function () {
-                    cursorDot.style.opacity = '0';
-                    cursorOutline.style.opacity = '0';
-                });
             }
         });
     </script>
